@@ -1,6 +1,11 @@
 #ifndef __WAITTINGROOM_SCENE_H__
 #define __WAITTINGROOM_SCENE_H__
-
+#include "TLMN.h"
+#include "phom.h"
+#include "sam.h"
+#include "tala.h"
+#include "xito.h"
+#include "xocdia.h"
 #include "cocos2d.h"
 
 class waittingRoom : public cocos2d::Layer

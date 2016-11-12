@@ -1,6 +1,7 @@
 ﻿#include "waittingRoom.h"
 #include "SimpleAudioEngine.h"
 #include "ui\CocosGUI.h"
+
 USING_NS_CC;
 using namespace ui;
 Scene* waittingRoom::createScene()
@@ -91,7 +92,7 @@ bool waittingRoom::init()
 
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-
+		
 			break;
 		}
 	});
@@ -187,7 +188,8 @@ bool waittingRoom::init()
 
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-
+			auto phomScene = phom::createScene();
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, phomScene));
 			break;
 		}
 	});
@@ -203,7 +205,8 @@ bool waittingRoom::init()
 
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-
+			auto xitoScene = xito::createScene();
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, xitoScene));
 			break;
 		}
 	});
@@ -219,7 +222,8 @@ bool waittingRoom::init()
 
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-
+			auto talaScene = tala::createScene();
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, talaScene));
 			break;
 		}
 	});
@@ -235,7 +239,8 @@ bool waittingRoom::init()
 
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-
+			auto TLMNscene = TLMN::createScene();
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, TLMNscene));
 			break;
 		}
 	});
@@ -251,7 +256,8 @@ bool waittingRoom::init()
 
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-
+			auto samScene = sam::createScene();
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, samScene));
 			break;
 		}
 	});
@@ -267,7 +273,8 @@ bool waittingRoom::init()
 
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-
+			auto xocdiaScene = xocdia::createScene();
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5, xocdiaScene));
 			break;
 		}
 	});
@@ -275,8 +282,7 @@ bool waittingRoom::init()
 	//Button Next page
 	auto nextpage = ui::Button::create("next.png");
 	nextpage->setRotation(180);
-	nextpage->setPosition(Vec2(origin.x + visibleSize.width - nextpage->getContentSize().width / 2
-		, origin.y + visibleSize.height - nextpage->getContentSize().height / 2));
+	nextpage->setPosition(Vec2(origin.x - nextpage->getContentSize().width/2 + visibleSize.width-75, origin.y + visibleSize.height/2));
 	nextpage->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType Type){
 		switch (Type)
 		{
@@ -291,8 +297,7 @@ bool waittingRoom::init()
 	this->addChild(nextpage, 100);
 	//Button preview page
 	auto previewpage = ui::Button::create("next.png");
-	previewpage->setPosition(Vec2(origin.x + visibleSize.width - previewpage->getContentSize().width / 2
-		, origin.y + visibleSize.height - previewpage->getContentSize().height / 2));
+	previewpage->setPosition(Vec2(origin.x + previewpage->getContentSize().width/2+75,origin.y + visibleSize.height / 2));
 	previewpage->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType Type){
 		switch (Type)
 		{
@@ -309,11 +314,15 @@ bool waittingRoom::init()
 	//thông báo
 	auto notification = Sprite::create("chaomung.png");
 	notification->setPosition(Vec2(origin.x +visibleSize.width / 2, origin.y + visibleSize.height - notification->getContentSize().height / 2 -20));
-	this->addChild(notification, 100);
+	this->addChild(notification, 50);
 	//Loa
 	auto loa = Sprite::create("thong-bao.png");
-	loa->setPosition(Vec2(origin.x + visibleSize.width / 2 - 300, origin.y + visibleSize.height - notification->getContentSize().height / 2 - 20));
+	loa->setPosition(Vec2(origin.x + visibleSize.width / 2 - 360, origin.y + visibleSize.height - notification->getContentSize().height / 2 - 20));
 	this->addChild(loa, 100);
+	//text thông báo
+	auto thongbao = Label::createWithTTF("Chào mừng bạn đã đến với Game Bài Đổi Thưởng BigKen Online", "fonts/Marker Felt.ttf", 24);
+	thongbao->setPosition(Vec2(origin.x + visibleSize.width / 2- 330, origin.y + visibleSize.height - 200));
+	this->addChild(thongbao, 1000);
     // BackGround
     auto background = Sprite::create("background.png");
 	background->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
