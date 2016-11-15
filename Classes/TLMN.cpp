@@ -27,9 +27,48 @@ bool TLMN::init()
     {
         return false;
     }
+	Size winSize = Director::sharedDirector()->getWinSize();
+
+	_bgNode = Node::create();
+	_bgNode->setPosition(ccp(winSize.width / 2, winSize.height / 2));
+	this->addChild(_bgNode, -1);
+
+	_bgSprite = Sprite::create("background.jpg");
+
+		_bgNode->addChild(_bgSprite);
+
+	//for scaling purposes
+	float rX = winSize.width / _bgSprite->getContentSize().width;
+	float rY = winSize.height / _bgSprite->getContentSize().height;
+
+	_bgNode->setScaleX(rX);
+	_bgNode->setScaleY(rY);
+
+	Sprite *menuboard = Sprite::create("menu_board.png");
+	menuboard->setScaleX(rX);
+	menuboard->setScaleY(rY);
+	menuboard->setPosition(ccp(winSize.width / 2, winSize.height / 2));
+	this->addChild(menuboard);
+
+	//for creating a table view
+	TableView* tableView = TableView::create(this,
+		SizeMake(menuboard->getContentSize().width*.60, menuboard->getContentSize().height*.60));
+	tableView->setDirection(kScrollViewDirectionVertical);
+	tableView->setPosition(winSize.width*.26, winSize.height*.30);
+	tableView->setDelegate(this);
+	tableView->setBounceable(false);
+	tableView->setVerticalFillOrder(kTableViewFillTopDown);
+
+	this->addChild(tableView, 1);
+	tableView->reloadData();
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	//--------------------
+
+	TableView * tv = TableView::create(this, Size(300, 300));
+	addChild(tv);
 
 	//------------button back
 	auto backButton = ui::Button::create("icon-back.png");
@@ -199,4 +238,8 @@ bool TLMN::init()
 	this->addChild(ID, 50);
    
     return true;
+}
+unsigned int TLMN::numberOfCellsInTableView(TableView * table)
+{
+	return 10;
 }
